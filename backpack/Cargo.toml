@@ -1,0 +1,21 @@
+[package]
+name = "env-rs"
+version = "0.1.0"
+authors = ["test@example.com"]
+edition = "2024"
+license = "MIT"
+description = "Load environment variables from dev/prod files"
+repository = "https://github.com/yonasBSD/env.rs"
+readme = "README.md"
+keywords = ["env", "rust"]
+
+[features]
+coverage = []
+
+[dependencies]
+dotenvy = { version = "0.15.7", features = ["cli"] }
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.22", features = ["env-filter"] }
+
+[dev-dependencies]
+tempfile = "3.24.0"
