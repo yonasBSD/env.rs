@@ -11,11 +11,16 @@ keywords = ["env", "rust"]
 
 [features]
 coverage = []
+tracing = ["dep:tracing", "dep:tracing-subscriber"]
 
 [dependencies]
-dotenvy = { version = "0.15.7", features = ["cli"] }
-tracing = "0.1.44"
-tracing-subscriber = { version = "0.3.22", features = ["env-filter"] }
+dotenvy = { version = "0.15", features = ["cli"] }
+tracing = { version = "0.1", optional = true }
+tracing-subscriber = { version = "0.3", features = ["env-filter"], optional = true }
 
 [dev-dependencies]
-tempfile = "3.24.0"
+tempfile = "3.24"
+
+[[example]]
+name = "dev-prod"
+required-features = ["tracing"]

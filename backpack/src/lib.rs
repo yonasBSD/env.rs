@@ -1,5 +1,4 @@
 use std::{env, error, fmt, str::FromStr};
-use tracing::debug;
 
 pub fn init() -> Result<(), Box<dyn error::Error>> {
     let app_env = env::var("APP_ENV")
@@ -21,8 +20,8 @@ pub fn init() -> Result<(), Box<dyn error::Error>> {
 
             for item in iter {
                 let (key, value) = item?;
-                debug!("\t{key} = {value}");
 
+                debug!("==>", key = &key, value = &value);
                 unsafe {
                     env::set_var(&key, &value);
                 }
@@ -31,6 +30,20 @@ pub fn init() -> Result<(), Box<dyn error::Error>> {
     }
 
     Ok(())
+}
+
+#[macro_export]
+macro_rules! debug {
+    // Just a message, no fields
+    ($msg:expr) => {
+        #[cfg(feature = "tracing")]
+        tracing::debug!($msg);
+    };
+    // Message with any number of key-value pairs
+    ($msg:expr, $($key:ident = $value:expr),+ $(,)?) => {
+        #[cfg(feature = "tracing")]
+        tracing::debug!($($key = ?$value),+, $msg);
+    };
 }
 
 #[derive(Debug)]
