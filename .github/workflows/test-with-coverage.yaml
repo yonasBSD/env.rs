@@ -82,7 +82,7 @@ jobs:
       #    key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('Cargo.lock') }}
 
       - name: Install grcov
-        uses: taiki-e/install-action@f63c33fd96cc1e69a29bafd06541cf28588b43a4 # v2.58.21
+        uses: taiki-e/install-action@83961fc0a2afe7f045535b5741d9a6418d7e1168 # v2.66.0
         with:
           tool: grcov,cargo-llvm-cov
 
