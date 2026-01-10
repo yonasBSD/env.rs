@@ -299,9 +299,6 @@ mod tests {
         let result: Result<AppEnv, _> = "staging".parse();
         assert!(result.is_err());
         let err = result.unwrap_err();
-        assert_eq!(
-            err,
-            "Invalid APP_ENV: staging. Must be 'dev' or 'prod'"
-        );
+        assert_eq!(err, "Invalid APP_ENV: staging. Must be 'dev' or 'prod'");
     }
 }

@@ -3,9 +3,7 @@ use std::env;
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Initialize tracing subscriber with env filter
     tracing_subscriber::fmt()
-        .with_env_filter(
-            tracing_subscriber::EnvFilter::from_default_env()
-        )
+        .with_env_filter(tracing_subscriber::EnvFilter::from_default_env())
         .init();
 
     env_rs::init()?;
