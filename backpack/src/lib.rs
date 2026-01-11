@@ -69,7 +69,9 @@ impl FromStr for AppEnv {
         match s {
             "dev" => Ok(Self::Dev),
             "prod" => Ok(Self::Prod),
-            s => Err(anyhow!(format!("Invalid APP_ENV: {s}. Must be 'dev' or 'prod'"))),
+            s => Err(anyhow!(format!(
+                "Invalid APP_ENV: {s}. Must be 'dev' or 'prod'"
+            ))),
         }
     }
 }
