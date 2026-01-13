@@ -1,6 +1,7 @@
-use std::{env, error, fmt, str::FromStr};
+use anyhow::anyhow;
+use std::{env, fmt, str::FromStr};
 
-pub fn init() -> Result<(), Box<dyn error::Error>> {
+pub fn init() -> anyhow::Result<()> {
     let app_env = env::var("APP_ENV")
         .ok()
         .map(|v| v.parse())
@@ -62,12 +63,15 @@ impl fmt::Display for AppEnv {
 }
 
 impl FromStr for AppEnv {
-    type Err = String;
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
+    type Err = anyhow::Error;
+
+    fn from_str(s: &str) -> anyhow::Result<Self, Self::Err> {
         match s {
             "dev" => Ok(Self::Dev),
             "prod" => Ok(Self::Prod),
-            s => Err(format!("Invalid APP_ENV: {s}. Must be 'dev' or 'prod'")),
+            s => Err(anyhow!(format!(
+                "Invalid APP_ENV: {s}. Must be 'dev' or 'prod'"
+            ))),
         }
     }
 }
@@ -296,9 +300,12 @@ mod tests {
 
     #[test]
     fn test_appenv_from_str_invalid() {
-        let result: Result<AppEnv, _> = "staging".parse();
+        let result: anyhow::Result<AppEnv, _> = "staging".parse();
         assert!(result.is_err());
         let err = result.unwrap_err();
-        assert_eq!(err, "Invalid APP_ENV: staging. Must be 'dev' or 'prod'");
+        assert_eq!(
+            err.to_string(),
+            "Invalid APP_ENV: staging. Must be 'dev' or 'prod'"
+        );
     }
 }
