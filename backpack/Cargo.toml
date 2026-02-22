@@ -14,7 +14,7 @@ coverage = []
 tracing = ["dep:tracing", "dep:tracing-subscriber"]
 
 [dependencies]
-anyhow = "1.0.100"
+anyhow = "1.0.102"
 dotenvy = { version = "0.15" }
 tracing = { version = "0.1", optional = true }
 tracing-subscriber = { version = "0.3", features = ["env-filter"], optional = true }
